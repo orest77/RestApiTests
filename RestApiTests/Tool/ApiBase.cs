@@ -1,4 +1,7 @@
-﻿using RestSharp;
+﻿using System.Collections.Generic;
+using System.Net;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace RestApiTests.Tool
 {
@@ -44,9 +47,15 @@ namespace RestApiTests.Tool
             return request;
         }
 
-        protected IRestResponse SendResponse(IRestRequest request)
+        protected IRestResponse SendRequest(IRestRequest request)
         {
             return _client.Execute(request);
+        }
+
+        protected dynamic DeserializeResponse(IRestResponse response)
+        {
+            dynamic jsonValue = JsonConvert.DeserializeObject<object>(response.Content);
+            return  jsonValue;
         }
     }
 }

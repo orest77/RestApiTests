@@ -1,6 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using RestApiTests.Logic;
+using RestApiTests.Tool;
+using RestSharp;
 
 namespace RestApiTests.Tests
 {
@@ -16,10 +18,13 @@ namespace RestApiTests.Tests
         [Test]
         public void TestAPILogin()
         {
-            ApiMethods api = new ApiMethods();
-            string token= api.GetApiToken("admin", "qwerty");
-            Console.Write("Show token/ " + token.ToString());
-            Assert.AreEqual(token , "sdfsdfsdsfsdfsfefsfsdf");
+            ApiMethods _client = new ApiMethods();
+            string name = "admin"; 
+            string password = "qwerty";
+
+            var response = _client.Login(name, password);
+
+            Console.WriteLine("Text/ {0}/{1}",response.Key ,response.Value);
         }
 
     }
