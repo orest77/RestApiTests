@@ -21,10 +21,13 @@ namespace RestApiTests.Tests
             ApiMethods _client = new ApiMethods();
             string name = "admin"; 
             string password = "qwerty";
+            string passwordNew = "qwerty1";
+            int SetCoolDownTime = 250000;
+            int newTokenLifeTime = 500000;
 
-            var response = _client.Login(name, password);
+            var response = _client.GetLoginedAdmins();
 
-            Console.WriteLine("Text/ {0}/{1}",response.Key ,response.Value);
+            Console.WriteLine("Text/ {0}/{1}/",response.Key ,response.Value);
         }
 
     }
