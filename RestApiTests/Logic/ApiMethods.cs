@@ -8,7 +8,7 @@ namespace RestApiTests.Logic
 {
     public class ApiMethods : ApiBase
     {
-
+        public object ApiToken => Login("admin", "qwerty").Value;
 
         //Post Method for login test. If API test is success then Method get API token
         public  KeyValuePair<HttpStatusCode, object> Login(string userName, string password)
@@ -26,7 +26,7 @@ namespace RestApiTests.Logic
         {
             IRestRequest request = BuildPostMethod("logout");
             request.AddOrUpdateParameter("name", userName);
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -36,7 +36,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> ChangePassword(string oldPassword, string newPassword)
         {
             IRestRequest request = BuildPutMethod("user");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             request.AddOrUpdateParameter("oldPassword", oldPassword);
             request.AddOrUpdateParameter("newPassword", newPassword);
             IRestResponse response = SendRequest(request);
@@ -48,7 +48,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetUserName()
         {
             IRestRequest request = BuildGetMethod("user");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -75,7 +75,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> SetCoolDownTime(int newCoolDownTime)
         {
             IRestRequest request = BuildPutMethod("cooldowntime");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token",ApiToken);
             request.AddOrUpdateParameter("newTokenLifeTime", newCoolDownTime);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
@@ -86,7 +86,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> SetTokenLifeTime(int newTokenLifeTime)
         {
             IRestRequest request = BuildPutMethod("tokenlifetime");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             request.AddOrUpdateParameter("newTokenLifeTime", newTokenLifeTime);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
@@ -96,7 +96,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> CreateUser(string newName, string newPassword,bool adminRights)
         {
             IRestRequest request = BuildPostMethod("user");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token",ApiToken);
             request.AddOrUpdateParameter("newName", newName);
             request.AddOrUpdateParameter("newPassword", newPassword);
             request.AddOrUpdateParameter("adminRights", adminRights);
@@ -109,7 +109,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> RemoveUser(string removedName)
         {
             IRestRequest request = BuildDeleteMethod("user");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             request.AddOrUpdateParameter("newName", removedName);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
@@ -120,7 +120,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetAllAdmins()
         {
             IRestRequest request = BuildGetMethod("admins");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -129,7 +129,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetLoginedAdmins()
         {
             IRestRequest request = BuildGetMethod("login/admins");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token",ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -138,7 +138,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetLockedAdmins()
         {
             IRestRequest request = BuildGetMethod("locked/admins");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -147,7 +147,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetAllUsers()
         {
             IRestRequest request = BuildGetMethod("users");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -156,7 +156,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetLoginedUsers()
         {
             IRestRequest request = BuildGetMethod("login/users");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -165,7 +165,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetAliveTockens()
         {
             IRestRequest request = BuildGetMethod("login/tockens");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -174,7 +174,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> GetLockedUsers()
         {
             IRestRequest request = BuildGetMethod("locked/users");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -183,8 +183,8 @@ namespace RestApiTests.Logic
         //Post method search user
         public KeyValuePair<HttpStatusCode, object> LockUser(string name)
         {
-            IRestRequest request = BuildPostMethod("locked/user/{name}");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            IRestRequest request = BuildPostMethod($"locked/user/{name}");
+            request.AddOrUpdateParameter("token",ApiToken);
             request.AddOrUpdateParameter("name", name);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
@@ -194,8 +194,8 @@ namespace RestApiTests.Logic
         //Methods Put
         public KeyValuePair<HttpStatusCode, object> UnlockUser(string name)
         {
-            IRestRequest request = BuildPutMethod("locked/user/{name}");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            IRestRequest request = BuildPutMethod($"locked/user/{name}");
+            request.AddOrUpdateParameter("token", ApiToken);
             request.AddOrUpdateParameter("name", name);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
@@ -205,7 +205,7 @@ namespace RestApiTests.Logic
         public KeyValuePair<HttpStatusCode, object> UnlockAllUsers()
         {
             IRestRequest request = BuildPutMethod("locked/reset");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            request.AddOrUpdateParameter("token", ApiToken);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
             return new KeyValuePair<HttpStatusCode, object>(response.StatusCode, jsonV["content"]);
@@ -214,8 +214,8 @@ namespace RestApiTests.Logic
         //Get method user items
         public KeyValuePair<HttpStatusCode, object> GetUserItems(string name)
         {
-            IRestRequest request = BuildGetMethod("item/user/{name}");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            IRestRequest request = BuildGetMethod($"item/user/{name}");
+            request.AddOrUpdateParameter("token", ApiToken);
             request.AddOrUpdateParameter("name", name);
             IRestResponse response = SendRequest(request);
             var jsonV = DeserializeResponse(response);
@@ -223,10 +223,10 @@ namespace RestApiTests.Logic
         }
 
         //
-        public KeyValuePair<HttpStatusCode, object> GetUserItem(string name, string index)
+        public KeyValuePair<HttpStatusCode, object> GetUserItem(string name, int index)
         {
-            IRestRequest request = BuildGetMethod("item/{index}/user/{name}");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            IRestRequest request = BuildGetMethod($"item/{index}/user/{name}");
+            request.AddOrUpdateParameter("token", ApiToken);
             request.AddOrUpdateParameter("name", name);
             request.AddOrUpdateParameter("index", index);
             IRestResponse response = SendRequest(request);
@@ -235,10 +235,10 @@ namespace RestApiTests.Logic
         }
 
         //Method POST ADD Item
-        public KeyValuePair<HttpStatusCode, object> AddItem(string item, string index)
+        public KeyValuePair<HttpStatusCode, object> AddItem(string item, int index)
         {
-            IRestRequest request = BuildPostMethod("item/{index}");
-            request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
+            IRestRequest request = BuildPostMethod($"item/{index}");
+            request.AddOrUpdateParameter("token", ApiToken);
             request.AddOrUpdateParameter("item", item);
             request.AddOrUpdateParameter("index", index);
             IRestResponse response = SendRequest(request);
@@ -247,9 +247,9 @@ namespace RestApiTests.Logic
         }
 
         //Method Delete  Item
-        public KeyValuePair<HttpStatusCode, object> DeleteItem( string index)
+        public KeyValuePair<HttpStatusCode, object> DeleteItem(int index)
         {
-            IRestRequest request = BuildDeleteMethod("item/{index}");
+            IRestRequest request = BuildDeleteMethod($"item/{index}");
             request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
             request.AddOrUpdateParameter("index", index);
             IRestResponse response = SendRequest(request);
@@ -258,9 +258,9 @@ namespace RestApiTests.Logic
         }
 
         //
-        public KeyValuePair<HttpStatusCode, object> UpdateItem(string index,string item)
+        public KeyValuePair<HttpStatusCode, object> UpdateItem(int index,string item)
         {
-            IRestRequest request = BuildPutMethod("item/{index}");
+            IRestRequest request = BuildPutMethod($"item/{index}");
             request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
             request.AddOrUpdateParameter("index", index);
             request.AddOrUpdateParameter("item", item);
@@ -291,9 +291,9 @@ namespace RestApiTests.Logic
         }
 
         //
-        public KeyValuePair<HttpStatusCode, object> GetItem(string index)
+        public KeyValuePair<HttpStatusCode, object> GetItem(int index)
         {
-            IRestRequest request = BuildGetMethod("item/{index}");
+            IRestRequest request = BuildGetMethod($"item/{index}");
             request.AddOrUpdateParameter("token", Login("admin","qwerty").Value);
             request.AddOrUpdateParameter("index", index);
             IRestResponse response = SendRequest(request);
