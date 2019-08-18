@@ -81,7 +81,7 @@ namespace RestApiTests.Tests
         public void GetTokenLifeTimeTest()
         {
             //Arrange
-            string expectedResult = "300000";
+            string expectedResult = "1000";
             //Act
             var result = _client.GetTokenLifeTime();
             //Assert
@@ -148,39 +148,40 @@ namespace RestApiTests.Tests
         public void GetAllAdminsTest()
         {
             //Arrange
-          
+            string name = "admin";
             //Act
             var result = _client.GetAllAdmins();
             //Assert
             Assert.AreEqual(result.Key, HttpStatusCode.OK);
             Console.WriteLine($"{result.Value}");
-            Assert.IsTrue(result.Value.ToString() == "True");
+            Assert.IsTrue(result.Value.ToString().Contains(name));
         }
 
         [Test]
         public void GetLoginedAdminsTest()
         {
             //Arrange
-          
+            string loginedAdmin = "admin";
             //Act
             var result = _client.GetLoginedAdmins();
             //Assert
             Assert.AreEqual(result.Key, HttpStatusCode.OK);
             Console.WriteLine($"{result.Value}");
-            Assert.IsTrue(result.Value.ToString() == "True");
+            Assert.IsNotEmpty(result.Value.ToString());
         }
 
         [Test]
         public void GetLockedAdminsTest()
         {
             //Arrange
-          
+            string loginedAdmin = "admin";
+
             //Act
             var result = _client.GetLockedAdmins();
             //Assert
             Assert.AreEqual(result.Key, HttpStatusCode.OK);
             Console.WriteLine($"{result.Value}");
-            Assert.IsTrue(result.Value.ToString() == "True");
+            Assert.IsNotEmpty(result.Value.ToString());
         }
 
         [Test]
@@ -193,7 +194,7 @@ namespace RestApiTests.Tests
             //Assert
             Assert.AreEqual(result.Key, HttpStatusCode.OK);
             Console.WriteLine($"{result.Value}");
-            Assert.IsTrue(result.Value.ToString() == "True");
+            Assert.IsNotNull(result.Value.ToString());
         }
 
         
@@ -207,7 +208,7 @@ namespace RestApiTests.Tests
             //Assert
             Assert.AreEqual(result.Key, HttpStatusCode.OK);
             Console.WriteLine($"{result.Value}");
-            Assert.IsTrue(result.Value.ToString() == "True");
+            Assert.IsNotEmpty(result.Value.ToString());
         }
 
         [Test]
@@ -220,7 +221,7 @@ namespace RestApiTests.Tests
             //Assert
             Assert.AreEqual(result.Key, HttpStatusCode.OK);
             Console.WriteLine($"{result.Value}");
-            Assert.IsTrue(result.Value.ToString() == "True");
+            Assert.IsNotEmpty(result.Value.ToString());
         }
 
         [Test]
@@ -233,7 +234,7 @@ namespace RestApiTests.Tests
             //Assert
             Assert.AreEqual(result.Key, HttpStatusCode.OK);
             Console.WriteLine($"{result.Value}");
-            Assert.IsTrue(result.Value.ToString() == "True");
+            Assert.IsNotEmpty(result.Value.ToString());
         }
 
         [Test]
